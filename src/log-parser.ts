@@ -91,16 +91,33 @@ export type Events =
   | ValidatedEvent
   | WarmodEvent;
 
-const { length: LENGTH_OF_DATE } = "10/20/2020 - 10:30:50: ";
-
 export interface IParseOptions {
   parsers?: IBaseParser<Events>[];
+  format?: "file" | "http";
 }
 
-export function parse(rawLog: string, { parsers = defaultParsers }: IParseOptions = {}): Events | undefined {
-  const receivedAt = new Date(rawLog.substring(0, LENGTH_OF_DATE - 2).replace(" - ", " "));
+const { length: LENGTH_OF_DATE_FILE } = "10/20/2020 - 10:30:50: ";
+const { length: LENGTH_OF_DATE_HTTP } = "01/28/2024 - 13:11:03.628 - ";
 
-  const log = rawLog.substring(LENGTH_OF_DATE);
+export function parse(rawLog: string, { parsers = defaultParsers, format = "file" }: IParseOptions = {}): Events | undefined {
+  let receivedAt: Date;
+  let log: string;
+
+  if (format === "file") {
+
+    receivedAt = new Date(rawLog.substring(0, LENGTH_OF_DATE_FILE - 2).replace(" - ", " "));
+    log = rawLog.substring(LENGTH_OF_DATE_FILE);
+
+  } else if (format === "http") {
+
+    receivedAt = new Date(rawLog.substring(0, LENGTH_OF_DATE_HTTP - 3).replace(" - ", " "));
+    log = rawLog.substring(LENGTH_OF_DATE_HTTP);
+
+  } else {
+
+    throw new Error("Invalid format specified.");
+
+  }
 
   for (const parser of parsers) {
     const pattern = parser.patterns.find((item) => item.test(log));

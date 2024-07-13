@@ -8,7 +8,7 @@ export type KilledEventPayload = {
   victim: Entity;
 
   weaponName: string;
-  modifiers: ("headshot" | "penetrated" | "throughsmoke" | "noscope")[];
+  modifiers: ("attackerblind" | "attackerinair" | "headshot" | "penetrated" | "throughsmoke" | "noscope")[];
 };
 
 export type KilledEvent = IBaseEvent<"killed", KilledEventPayload>;
