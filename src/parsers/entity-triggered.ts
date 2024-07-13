@@ -18,7 +18,9 @@ export type EntityTriggeredEventPayload = {
     | "planted_the_bomb"
     | "got_the_bomb"
     | "dropped_the_bomb"
-    | "clantag";
+    | "clantag"
+    | "touched_a_hostage"
+    | "rescued_a_hostage";
 
   value: string;
 };
