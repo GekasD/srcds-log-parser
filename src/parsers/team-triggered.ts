@@ -8,7 +8,9 @@ export type TeamTriggeredEventPayload = {
     | "sfui_notice_cts_win"
     | "sfui_notice_target_bombed"
     | "sfui_notice_target_saved"
-    | "sfui_notice_bomb_defused";
+    | "sfui_notice_bomb_defused"
+    | "sfui_notice_hostages_not_rescued"
+    | "sfui_notice_all_hostages_rescued";
 
   team: ITeamEntity;
 
