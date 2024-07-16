@@ -2,6 +2,7 @@ import {
   IBaseParser,
   assistParser,
   attackedParser,
+  blindedParser,
   connectionParser,
   entityTriggeredParser,
   killedParser,
@@ -42,11 +43,13 @@ import {
   ThrewEvent,
   ValidatedEvent,
   WarmodEvent,
+  BlindedEvent,
 } from "./parsers";
 
 export const defaultParsers = [
   assistParser,
   attackedParser,
+  blindedParser,
   connectionParser,
   entityTriggeredParser,
   killedParser,
@@ -71,6 +74,7 @@ export const defaultParsers = [
 export type Events =
   | AssistEvent
   | AttackedEvent
+  | BlindedEvent
   | ConnectionEvent
   | EntityTriggeredEvent
   | KilledEvent
