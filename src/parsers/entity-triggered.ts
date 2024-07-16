@@ -27,16 +27,18 @@ export type EntityTriggeredEventPayload = {
 
 export type EntityTriggeredEvent = IBaseEvent<"entity_triggered", EntityTriggeredEventPayload>;
 
-// eslint-disable-next-line max-len
-// "Entity<93><STEAM_1:0:12345><CT>" triggered "Defused_The_Bomb"
 // World triggered "Match_Start" on "de_inferno"
 // World triggered "Round_Start"
 // World triggered "Round_End"
 // World triggered "Game_Commencing"
+
 // "PlayerName<93><STEAM_1:0:12345><CT>" triggered "Begin_Bomb_Defuse_With_Kit"
 // "PlayerName<93><STEAM_1:0:12345><CT>" triggered "Begin_Bomb_Defuse_Without_Kit"
 // "PlayerName<93><STEAM_1:0:12345><CT>" triggered "Defused_The_Bomb"
-// "Irwin<3><BOT><TERRORIST>" triggered "Planted_The_Bomb"
+
+// "Vox<4><BOT><TERRORIST>" triggered "Bomb_Begin_Plant" at bombsite B
+// "Vox<4><BOT><TERRORIST>" triggered "Planted_The_Bomb" at bombsite B
+
 // "Opie<10><BOT><TERRORIST>" triggered "Dropped_The_Bomb"
 // "Bob<5><BOT><TERRORIST>" triggered "Got_The_Bomb"
 export const entityTriggeredParser = defineParser<EntityTriggeredEvent>({
@@ -45,6 +47,7 @@ export const entityTriggeredParser = defineParser<EntityTriggeredEvent>({
   patterns: [
     concatPattern`^(?<entity>${entityRe}) triggered "(?<kind>[^"]+)"(?: \\(value "(?<value>[^"]+)"\\))?$`,
     concatPattern`^(?<entity>${entityRe}) triggered "(?<kind>[^"]+)" on "(?<value>[^"]+)"$`,
+    concatPattern`^(?<entity>${entityRe}) triggered "(?<kind>[^"]+)" at bombsite (?<value>[^"]+)$`
   ],
 
   parse({

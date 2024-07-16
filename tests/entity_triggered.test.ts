@@ -125,6 +125,24 @@ describe("entity_trigged", (): void => {
           value: "123",
         },
       ],
+
+      [
+        '"PlayerName<93><[U:1:230970467]><CT>" triggered "Bomb_Begin_Plant" at bombsite B',
+        {
+          entity: player,
+          kind: "bomb_begin_plant",
+          value: 'B',
+        },
+      ],
+
+      [
+        '"PlayerName<93><[U:1:230970467]><CT>" triggered "Planted_The_Bomb" at bombsite B',
+        {
+          entity: player,
+          kind: "planted_the_bomb",
+          value: 'B',
+        },
+      ],
     ];
 
     for (const [log, event] of events) {
