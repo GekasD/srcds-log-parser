@@ -1,6 +1,6 @@
 export * from "./parser";
 
-export * from "./assist";
+export * from "./assisted";
 export * from "./attacked";
 export * from "./blinded";
 export * from "./connection";

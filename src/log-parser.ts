@@ -22,7 +22,7 @@ import {
   threwParser,
   validatedParser,
   warmodParser,
-  AssistEvent,
+  AssistedEvent,
   AttackedEvent,
   ConnectionEvent,
   EntityTriggeredEvent,
@@ -72,7 +72,7 @@ export const defaultParsers = [
 ];
 
 export type Events =
-  | AssistEvent
+  | AssistedEvent
   | AttackedEvent
   | BlindedEvent
   | ConnectionEvent
