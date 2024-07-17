@@ -1,10 +1,11 @@
 import {
   IBaseParser,
-  assistParser,
+  assistedParser,
   attackedParser,
   blindedParser,
   connectionParser,
   entityTriggeredParser,
+  gameOverParser,
   killedParser,
   leftBuyzoneWithParser,
   playerUpdateParser,
@@ -24,8 +25,10 @@ import {
   warmodParser,
   AssistedEvent,
   AttackedEvent,
+  BlindedEvent,
   ConnectionEvent,
   EntityTriggeredEvent,
+  GameOverEvent,
   KilledEvent,
   LeftBuyzoneWithEvent,
   PlayerUpdateEvent,
@@ -42,16 +45,16 @@ import {
   TeamTriggeredEvent,
   ThrewEvent,
   ValidatedEvent,
-  WarmodEvent,
-  BlindedEvent,
+  WarmodEvent
 } from "./parsers";
 
 export const defaultParsers = [
-  assistParser,
+  assistedParser,
   attackedParser,
   blindedParser,
   connectionParser,
   entityTriggeredParser,
+  gameOverParser,
   killedParser,
   leftBuyzoneWithParser,
   playerUpdateParser,
@@ -77,6 +80,7 @@ export type Events =
   | BlindedEvent
   | ConnectionEvent
   | EntityTriggeredEvent
+  | GameOverEvent
   | KilledEvent
   | LeftBuyzoneWithEvent
   | PlayerUpdateEvent
