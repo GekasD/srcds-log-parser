@@ -20,11 +20,15 @@ export const assistParser = defineParser<AssistedEvent>({
     concatPattern`^(?<assistant>${entityRe}) (?<assistType>assisted|flash-assisted) killing (?<victim>${entityRe})$`
   ],
 
-  parse(groups) {
+  parse({
+    assistant,
+    victim,
+    assistType
+  }) {
     return {
-      assistant: parseEntity(groups.assistant),
-      victim: parseEntity(groups.victim),
-      flashAssist: groups.assistType.includes('flash-assisted')
+      assistant: parseEntity(assistant),
+      victim: parseEntity(victim),
+      flashAssist: assistType === 'flash-assisted'
     };
   },
 });
