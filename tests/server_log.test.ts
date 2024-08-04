@@ -40,6 +40,20 @@ describe("server_log", (): void => {
         },
       ],
       [
+        'Started:  ""',
+        {
+          kind: 'started',
+          value: '',
+        }
+      ],
+      [
+        'Started:  "value"',
+        {
+          kind: 'started',
+          value: 'value',
+        }
+      ],
+      [
         'server_message: "quit"',
         {
           kind: "message",
