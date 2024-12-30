@@ -1,29 +1,33 @@
 import { IBaseEvent, defineParser } from "./parser";
 import { concatPattern } from "../helpers";
-import { entityRe, IPlayerEntity, parseEntity } from "../entities";
+import { entityRe, IPlayerEntity, IBotEntity, parseEntity } from "../entities";
 
 export interface IConnectionConnectedEvent {
   kind: "connected";
-  player: IPlayerEntity;
+  client: IPlayerEntity | IBotEntity;
   address: string;
 }
 
 export interface IConnectionEnteredEvent {
   kind: "entered";
-  player: IPlayerEntity;
+  client: IPlayerEntity | IBotEntity;
 }
 
 export interface IConnectionDisconnectedEvent {
   kind: "disconnected";
-  player: IPlayerEntity;
+  client: IPlayerEntity | IBotEntity;
   reason: string;
 }
+
+// L 12/30/2024 - 17:27:19: "DemoRecorder<1><BOT><>" connected, address "none"
+
+// L 12/30/2024 - 17:27:19: "DemoRecorder<1><BOT><>" entered the game
 
 export type ConnectionEventPayload = IConnectionConnectedEvent | IConnectionEnteredEvent | IConnectionDisconnectedEvent;
 
 export type ConnectionEvent = IBaseEvent<"connection", ConnectionEventPayload>;
 
-const basePattern = concatPattern`^(?<player>${entityRe})`;
+const basePattern = concatPattern`^(?<client>${entityRe})`;
 
 // "ConnectionPlayer<93><STEAM_1:0:12345><>" connected, address ""
 // "Walt<96><BOT><>" connected, address ""
@@ -39,12 +43,12 @@ export const connectionParser = defineParser<ConnectionEvent>({
     concatPattern`${basePattern} (?<kind>disconnected) \\(reason "(?<reason>[^"]*)"\\)$`,
   ],
 
-  parse({ player: rawPlayer, kind, address, reason }) {
-    const player = parseEntity(rawPlayer) as IPlayerEntity;
+  parse({ client: rawClient, kind, address, reason }) {
+    const client = parseEntity(rawClient) as IPlayerEntity;
 
     return {
       kind: kind as ConnectionEventPayload["kind"],
-      player,
+      client,
       address,
       reason,
     };
